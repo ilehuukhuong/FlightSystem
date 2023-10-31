@@ -13,8 +13,10 @@ namespace API.Data
 
             var roles = new List<AppRole>
             {
-                new AppRole{Name = "Member"},
-                new AppRole{Name = "Admin"}
+                new AppRole{Name = "StaffGo"},
+                new AppRole{Name = "Admin"},
+                new AppRole{Name = "Pilot"},
+                new AppRole{Name = "FlightAttendant"}
             };
 
             foreach (var role in roles)
@@ -24,7 +26,9 @@ namespace API.Data
 
             var admin = new AppUser
             {
+                Name = "admin",
                 UserName = "admin",
+                Email = "admin@vietjetair.com",
             };
 
             await userManager.CreateAsync(admin, "Pa$$w0rd");

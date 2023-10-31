@@ -10,6 +10,10 @@ namespace API.Data
         public DataContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Configuration> Configurations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -25,6 +29,36 @@ namespace API.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+
+            builder.Entity<PermissionUser>()
+                .HasKey(k => new { k.AppUserId, k.PermissionId });
+
+            builder.Entity<PermissionUser>()
+                .HasOne(s => s.AppUser)
+                .WithMany(l => l.PermissionUsers)
+                .HasForeignKey(s => s.AppUserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<PermissionUser>()
+                .HasOne(s => s.Permission)
+                .WithMany(l => l.PermissionUsers)
+                .HasForeignKey(s => s.PermissionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ConfigurationPermission>()
+                .HasKey(k => new { k.PermissionId, k.ConfigurationId });
+
+            builder.Entity<ConfigurationPermission>()
+                .HasOne(s => s.Permission)
+                .WithMany(l => l.ConfigurationPermissions)
+                .HasForeignKey(s => s.PermissionId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            builder.Entity<ConfigurationPermission>()
+                .HasOne(s => s.Configuration)
+                .WithMany(l => l.ConfigurationPermissions)
+                .HasForeignKey(s => s.ConfigurationId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
