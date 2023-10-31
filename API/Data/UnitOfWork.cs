@@ -16,6 +16,7 @@ namespace API.Data
         public IUserRepository UserRepository => new UserRepository(_context, _mapper);
         public IPermissionRepository PermissionRepository => new PermissionRepository(_context, _mapper);
         public IConfigurationRepository ConfigurationRepository => new ConfigurationRepository(_context, _mapper);
+        public IFlightRepository FlightRepository => new FlightRepository(_context, _mapper);
 
         public async Task<bool> Complete()
         {

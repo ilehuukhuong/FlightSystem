@@ -8,6 +8,8 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<Flight, Flight>();
+            CreateMap<UpsertFlightDto, Flight>();
             CreateMap<Configuration, Configuration>();
             CreateMap<AppUserDto, PermissionUser>()
                 .ForMember(dest => dest.AppUserId, opt => opt.MapFrom(src => src.Id));

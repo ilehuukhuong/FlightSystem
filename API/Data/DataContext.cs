@@ -11,6 +11,7 @@ namespace API.Data
         {
         }
 
+        public DbSet<Flight> Flights { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
 
