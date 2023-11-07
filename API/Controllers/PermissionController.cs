@@ -16,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult<PagedList<PermissionDto>>> Get([FromQuery] PaginationParams paginationParams)
         {
             var permissions = await _uow.PermissionRepository.GetPermissionsAsync(paginationParams);
@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Create(PermissionDto permissionDto)
         {        
             _uow.PermissionRepository.CreatePermission(permissionDto, await _uow.UserRepository.GetUserByIdAsync(User.GetUserId()));
@@ -38,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Update(UpdatePermissionDto updatePermissionDto)
         {
             _uow.PermissionRepository.UpdatePermission(updatePermissionDto);
@@ -49,7 +49,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Delete(int id)
         {
             if (_uow.PermissionRepository.DeletePermission(id) == false) return BadRequest("This permission is being used or Not Found");

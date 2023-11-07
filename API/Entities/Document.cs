@@ -9,7 +9,10 @@
         public DateTime UploadDate { get; set; } = DateTime.Now;
         public int UploadedByUserId { get; set; }
         public AppUser UploadedByUser { get; set; }
+        public int ConfigurationId { get; set; }
+        public Configuration Configuration { get; set; }
         public bool Status { get; set; }
         public string PathFile { get; set; }
+        public double Version { get; set; } 
     }
 }

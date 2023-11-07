@@ -17,7 +17,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult<PagedList<Flight>>> Get([FromQuery] PaginationParams paginationParams)
         {
             var flights = await _uow.FlightRepository.GetFlightsAsync(paginationParams);
@@ -28,7 +28,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult<Flight>> Detail(int id)
         {
             var flight = await _uow.FlightRepository.GetFlightAsync(id);
@@ -37,7 +37,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Create(UpsertFlightDto flight)
         {        
             _uow.FlightRepository.CreateFlight(flight);
@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Update(UpsertFlightDto flight)
         {
             _uow.FlightRepository.UpdateFlight(flight);
@@ -59,7 +59,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Delete(int id)
         {
             if (_uow.FlightRepository.DeleteFlight(id) == false) return BadRequest("This flight is being used or Not Found");

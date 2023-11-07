@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20231107023507_UpdateDocument")]
+    partial class UpdateDocument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,49 +184,6 @@ namespace API.Data.Migrations
                     b.HasIndex("ConfigurationId");
 
                     b.ToTable("ConfigurationPermission");
-                });
-
-            modelBuilder.Entity("API.Entities.Document", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("ConfigurationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("DocumentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FlightId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PathFile")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("UploadDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("UploadedByUserId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Version")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConfigurationId");
-
-                    b.HasIndex("FlightId");
-
-                    b.HasIndex("UploadedByUserId");
-
-                    b.ToTable("Documents");
                 });
 
             modelBuilder.Entity("API.Entities.Flight", b =>
@@ -418,33 +377,6 @@ namespace API.Data.Migrations
                     b.Navigation("Configuration");
 
                     b.Navigation("Permission");
-                });
-
-            modelBuilder.Entity("API.Entities.Document", b =>
-                {
-                    b.HasOne("API.Entities.Configuration", "Configuration")
-                        .WithMany()
-                        .HasForeignKey("ConfigurationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Entities.Flight", "Flight")
-                        .WithMany()
-                        .HasForeignKey("FlightId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("API.Entities.AppUser", "UploadedByUser")
-                        .WithMany()
-                        .HasForeignKey("UploadedByUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Configuration");
-
-                    b.Navigation("Flight");
-
-                    b.Navigation("UploadedByUser");
                 });
 
             modelBuilder.Entity("API.Entities.Permission", b =>

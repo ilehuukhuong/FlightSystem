@@ -16,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult<PagedList<Configuration>>> Get([FromQuery] PaginationParams paginationParams)
         {
             var configurations = await _uow.ConfigurationRepository.GetConfigurationsAsync(paginationParams);
@@ -27,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Create(Configuration configuration)
         {        
             _uow.ConfigurationRepository.CreateConfiguration(configuration);
@@ -38,7 +38,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Update(Configuration configuration)
         {
             _uow.ConfigurationRepository.UpdateConfiguration(configuration);
@@ -49,7 +49,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireStaffGoRole")]
         public async Task<ActionResult> Delete(int id)
         {
             if (_uow.ConfigurationRepository.DeleteConfiguration(id) == false) return BadRequest("This configuration is being used or Not Found");

@@ -14,6 +14,7 @@ namespace API.Data
         public DbSet<Flight> Flights { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Configuration> Configurations { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

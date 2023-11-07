@@ -8,6 +8,8 @@ namespace API.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<DocumentDto, Document>()
+                .ReverseMap();
             CreateMap<Flight, Flight>();
             CreateMap<UpsertFlightDto, Flight>();
             CreateMap<Configuration, Configuration>();
